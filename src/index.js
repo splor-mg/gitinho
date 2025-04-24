@@ -7,7 +7,10 @@ app.use(express.json());
 
 // Initialize OpenAI client
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: process.env.OPENAI_API_BASE_URL,
+  defaultQuery: { "api-version": "2023-05-15" },
+  defaultHeaders: { "api-key": process.env.OPENAI_API_KEY }
 });
 
 // GitHub MCP integration
@@ -55,7 +58,7 @@ app.post('/analyze', async (req, res) => {
 
     // Generate AI analysis
     const analysis = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4o-mini-cursor",
       messages: [{
         role: "system",
         content: "You are a helpful assistant that analyzes GitHub repositories and explains their purpose and structure."
