@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const { OpenAI } = require('openai');
 const path = require('path');
+const fs = require('fs').promises;
 
 const app = express();
 app.use(express.json());
@@ -63,12 +64,16 @@ app.post('/analyze', async (req, res) => {
       contents: repoContents.map(item => `${item.name} (${item.type})`).join('\n')
     };
 
+    // Read the main prompt file
+    const promptPath = path.join(__dirname, '../prompts/main_prompt.md');
+    const systemPrompt = await fs.readFile(promptPath, 'utf8');
+
     // Generate AI analysis
     const analysis = await openai.chat.completions.create({
       model: "gpt-4o-mini-cursor",
       messages: [{
         role: "system",
-        content: "You are a helpful assistant that analyzes GitHub repositories and explains their purpose and structure."
+        content: systemPrompt
       }, {
         role: "user",
         content: `Please analyze this repository and explain its purpose and structure:\n${JSON.stringify(context, null, 2)}`
