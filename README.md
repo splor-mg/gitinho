@@ -4,10 +4,12 @@ Gitinho is an AI-powered GitHub repository analyzer that helps users understand 
 
 ## Features
 
+- Modern web interface with chat-like interaction
 - Repository analysis using AI
 - Detailed explanation of repository structure and purpose
 - Integration with GitHub API for repository data fetching
 - RESTful API endpoints for easy integration
+- Markdown rendering support for better content display
 
 ## Prerequisites
 
@@ -28,10 +30,11 @@ Gitinho is an AI-powered GitHub repository analyzer that helps users understand 
    npm install
    ```
 
-3. Create a `.env` file in the root directory with your credentials:
+3. Create a `.env` file in the root directory with your credentials, use the .env.example file as a template:
    ```env
    GITHUB_TOKEN=your_github_token
    OPENAI_API_KEY=your_openai_api_key
+   OPENAI_API_BASE_URL=your_openai_api_base_url_here
    PORT=3000
    ```
 
@@ -42,12 +45,24 @@ Gitinho is an AI-powered GitHub repository analyzer that helps users understand 
    npm start
    ```
 
-2. To analyze a repository, send a POST request to `/analyze` endpoint:
+2. Access the Web Interface:
+   - Open your web browser and navigate to `http://localhost:3000`
+   - You'll be presented with a modern chat-like interface
+   - Enter a GitHub repository URL or owner/repo combination to begin analysis
+
+3. API Usage:
+   To analyze a repository programmatically, send a POST request to `/analyze` endpoint:
    ```bash
    curl -X POST http://localhost:3000/analyze \
      -H "Content-Type: application/json" \
      -d '{"owner":"organization_name","repo":"repository_name"}'
    ```
+
+## Web Interface
+
+Gitinho provides a modern, intuitive web interface for analyzing GitHub repositories:
+
+![Feature Screenshot](docs/images/web_interface.png)
 
 ## API Endpoints
 

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const contentDiv = document.createElement('div');
         contentDiv.className = 'message-content';
-        contentDiv.textContent = content;
+        contentDiv.innerHTML = isUser ? content : marked.parse(content);
         
         messageDiv.appendChild(contentDiv);
         chatMessages.appendChild(messageDiv);
